@@ -1,0 +1,185 @@
+CREATE TABLE Gym1 (
+    GymID INT PRIMARY KEY,
+    GymName VARCHAR(100),
+    Address VARCHAR(100),
+    City VARCHAR(50),
+    PhoneNumber VARCHAR(15),
+    Email VARCHAR(100),
+    OwnerName VARCHAR(100)
+);
+
+CREATE TABLE GymManager1 (
+    ManagerID INT PRIMARY KEY,
+    GymID INT,
+    ManagerName VARCHAR(100),
+    ManagerPhone VARCHAR(15),
+    ManagerEmail VARCHAR(100),
+    FOREIGN KEY (GymID) REFERENCES Gym1(GymID) ON DELETE CASCADE
+);
+
+CREATE TABLE GymMember1 (
+    MemberID INT PRIMARY KEY,
+    GymID INT,
+    MemberName VARCHAR(100),
+    MemberDOB DATE,
+    MemberPhone VARCHAR(15),
+    MemberEmail VARCHAR(100),
+    JoinDate DATE,
+    FOREIGN KEY (GymID) REFERENCES Gym1(GymID) ON DELETE CASCADE
+);
+CREATE TABLE GymFee1 (
+    FeeID INT PRIMARY KEY,
+    GymID INT,
+    FeeAmount DECIMAL(10, 2),
+    FeeType VARCHAR(50),
+    StartDate DATE,
+    EndDate DATE,
+    FOREIGN KEY (GymID) REFERENCES Gym1(GymID) ON DELETE CASCADE
+);
+
+CREATE TABLE GymMembership1 (
+    MembershipID INT PRIMARY KEY,
+    MemberID INT,
+    GymID INT,
+    FeeID INT,
+    MembershipType VARCHAR(100),
+    StartDate DATE,
+    EndDate DATE,
+    Status VARCHAR(100),
+    PaymentStatus VARCHAR(100),
+    FOREIGN KEY (MemberID) REFERENCES GymMember1(MemberID) ON DELETE CASCADE,
+    FOREIGN KEY (GymID) REFERENCES Gym1(GymID) ON DELETE CASCADE,
+    FOREIGN KEY (FeeID) REFERENCES GymFee1(FeeID) ON DELETE CASCADE
+);
+
+CREATE TABLE GymTrainer1 (
+    TrainerID INT PRIMARY KEY,
+    GymID INT,
+    TrainerName VARCHAR(100),
+    TrainerSpecialty VARCHAR(100),
+    TrainerPhone VARCHAR(15),
+    TrainerEmail VARCHAR(100),
+    FOREIGN KEY (GymID) REFERENCES Gym1(GymID) ON DELETE CASCADE
+);
+
+CREATE TABLE GymEquipment1 (
+    EquipmentID INT PRIMARY KEY,
+    GymID INT,
+    EquipmentName VARCHAR(100),
+    EquipmentType VARCHAR(50),
+    PurchaseDate DATE,
+    Condition VARCHAR(50),
+    FOREIGN KEY (GymID) REFERENCES Gym1(GymID) ON DELETE CASCADE
+);
+
+CREATE TABLE GymDietPlan1 (
+    DietPlanID INT PRIMARY KEY,
+    GymID INT,
+    DietName VARCHAR(100),
+    DietDescription varchar(100),
+    Price integer,
+    FOREIGN KEY (GymID) REFERENCES Gym1(GymID) ON DELETE CASCADE
+);
+
+
+
+INSERT INTO Gym1 VALUES(1, 'FitWorld', '123 Fitness St', 'New York', '123-456-7890', 'contact@fitworld.com', 'naitik')
+INSERT INTO Gym1 VALUES(2, 'PowerHouse Gym', '456 Muscle Ave', 'Los Angeles', '987-654-3210', 'info@powerhouse.com', 'prince')
+INSERT INTO Gym1 VALUES(3, 'Iron Temple Fitness', '789 Iron Rd', 'Chicago', '555-212-3434', 'contact@irontemple.com', 'hina')
+INSERT INTO Gym1 VALUES(4, 'Muscle Lab', '101 Strength Ln', 'Houston', '555-342-4545', 'info@musclelab.com', 'umesh')
+INSERT INTO Gym1 VALUES(5, 'Peak Performance Gym', '202 Peak Blvd', 'Miami', '555-564-6767', 'support@peakperformance.com', 'manasvi')
+INSERT INTO Gym1 VALUES(6, 'FlexFit Studios', '303 Flex St', 'Los Angeles', '555-676-7878', 'flexfit@studio.com', 'naitik')
+INSERT INTO Gym1 VALUES(7, 'StrengthZone', '404 Power Dr', 'Austin', '555-898-9090', 'contact@strengthzone.com', 'prince')
+INSERT INTO Gym1 VALUES(8, 'BodyCraft Gym', '505 Body Rd', 'Dallas', '555-213-4321', 'info@bodycraft.com', 'umesh')
+INSERT INTO Gym1 VALUES(9, 'EliteFit', '606 Elite Ave', 'San Francisco', '555-234-5454', 'contact@elitefit.com', 'hina')
+INSERT INTO Gym1 VALUES(10, 'The Workout Hub', '707 Workout St', 'Seattle', '555-345-6565', 'support@workouthub.com', 'manasvi')
+
+
+
+
+INSERT INTO GymManager1 VALUES(1, 1, 'Charlie Brown', '111-222-3333', 'charlie@fitworld.com')
+INSERT INTO GymManager1 VALUES(2, 2, 'David Lee', '444-555-6666', 'david@powerhouse.com')
+INSERT INTO GymManager1 VALUES(3, 3, 'Eva Green', '555-123-2345', 'eva@irontemple.com')
+INSERT INTO GymManager1 VALUES(4, 4, 'George Clark', '666-234-3456', 'george@musclelab.com')
+INSERT INTO GymManager1 VALUES(5, 5, 'Hannah White', '777-345-4567', 'hannah@peakperformance.com')
+INSERT INTO GymManager1 VALUES(6, 6, 'Isaac Young', '888-456-5678', 'isaac@flexfit.com')
+INSERT INTO GymManager1 VALUES(7, 7, 'Jack Carter', '999-567-6789', 'jack@strengthzone.com')
+INSERT INTO GymManager1 VALUES(8, 8, 'Karen Scott', '101-678-7890', 'karen@bodycraft.com')
+INSERT INTO GymManager1 VALUES(9, 9, 'Leo King', '202-789-8901', 'leo@elitefit.com')
+INSERT INTO GymManager1 VALUES(10, 10, 'Monica Davis', '303-890-9012', 'monica@workouthub.com')
+
+
+INSERT INTO GymMember1 VALUES(1, 1, 'Raj Kumar', TO_DATE('1995-03-12', 'YYYY-MM-DD'), '9876543210', 'raj.kumar@gym.com', TO_DATE('2023-01-15', 'YYYY-MM-DD'))
+INSERT INTO GymMember1 VALUES(2, 2, 'Anjali Sharma', TO_DATE('1988-06-25', 'YYYY-MM-DD'), '9876543211', 'anjali.sharma@gym.com', TO_DATE('2023-02-10', 'YYYY-MM-DD'))
+INSERT INTO GymMember1 VALUES(3, 3, 'Vikram Singh', TO_DATE('1992-07-30', 'YYYY-MM-DD'), '9876543212', 'vikram.singh@gym.com', TO_DATE('2023-03-05', 'YYYY-MM-DD'))
+INSERT INTO GymMember1 VALUES(4, 4, 'Priya Patel', TO_DATE('1996-09-14', 'YYYY-MM-DD'), '9876543213', 'priya.patel@gym.com', TO_DATE('2023-01-10', 'YYYY-MM-DD'))
+INSERT INTO GymMember1 VALUES(5, 5, 'Ravi Yadav', TO_DATE('1990-02-20', 'YYYY-MM-DD'), '9876543214', 'ravi.yadav@gym.com', TO_DATE('2023-04-01', 'YYYY-MM-DD'))
+INSERT INTO GymMember1 VALUES(6, 6, 'Maya Gupta', TO_DATE('1994-12-04', 'YYYY-MM-DD'), '9876543215', 'maya.gupta@gym.com', TO_DATE('2023-02-22', 'YYYY-MM-DD'))
+INSERT INTO GymMember1 VALUES(7, 7, 'Suresh Verma', TO_DATE('1997-11-18', 'YYYY-MM-DD'), '9876543216', 'suresh.verma@gym.com', TO_DATE('2023-03-18', 'YYYY-MM-DD'))
+INSERT INTO GymMember1 VALUES(8, 8, 'Sneha Mehta', TO_DATE('1993-01-09', 'YYYY-MM-DD'), '9876543217', 'sneha.mehta@gym.com', TO_DATE('2023-05-05', 'YYYY-MM-DD'))
+INSERT INTO GymMember1 VALUES(9, 9, 'Karan Joshi', TO_DATE('1991-10-22', 'YYYY-MM-DD'), '9876543218', 'karan.joshi@gym.com', TO_DATE('2023-03-25', 'YYYY-MM-DD'))
+INSERT INTO GymMember1 VALUES(10, 10, 'Deepa Reddy', TO_DATE('1998-08-04', 'YYYY-MM-DD'), '9876543219', 'deepa.reddy@gym.com', TO_DATE('2023-06-10', 'YYYY-MM-DD'))
+
+
+INSERT INTO GymFee1 VALUES(1, 1, 50.00, 'Monthly', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'))
+INSERT INTO GymFee1 VALUES(2, 2, 60.00, 'Monthly', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'))
+INSERT INTO GymFee1 VALUES(3, 3, 55.00, 'Quarterly', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-03-31', 'YYYY-MM-DD'))
+INSERT INTO GymFee1 VALUES(4, 4, 100.00, 'Yearly', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'))
+INSERT INTO GymFee1 VALUES(5, 5, 45.00, 'Monthly', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'))
+INSERT INTO GymFee1 VALUES(6, 6, 80.00, 'Bi-Monthly', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-06-30', 'YYYY-MM-DD'))
+INSERT INTO GymFee1 VALUES(7, 7, 70.00, 'Monthly', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'))
+INSERT INTO GymFee1 VALUES(8, 8, 90.00, 'Yearly', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'))
+INSERT INTO GymFee1 VALUES(9, 9, 65.00, 'Monthly', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'))
+INSERT INTO GymFee1 VALUES(10, 10, 85.00, 'Quarterly', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-03-31', 'YYYY-MM-DD'))
+
+
+
+INSERT INTO GymMembership1 VALUES(1, 1, 1, 1, 'Gold', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'), 50.00, 'Active', 'Paid')
+INSERT INTO GymMembership1 VALUES(2, 2, 2, 'Silver', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'),  'Active', 'Paid')
+INSERT INTO GymMembership1 VALUES(3, 3, 3, 'Platinum', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'), 'Active', 'Pending')
+INSERT INTO GymMembership1 VALUES(4, 4, 4, 'Gold', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'), 'Active', 'Paid')
+INSERT INTO GymMembership1 VALUES(5, 5, 5, 'Silver', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'), 'Active', 'Paid')
+INSERT INTO GymMembership1 VALUES(6, 6, 6, 'Platinum', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'), 'Inactive', 'Pending')
+INSERT INTO GymMembership1 VALUES(7, 7, 7, 'Gold', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'), 'Active', 'Paid')
+INSERT INTO GymMembership1 VALUES(8, 8, 8, 'Silver', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'), 'Active', 'Paid')
+INSERT INTO GymMembership1 VALUES(9, 9, 9, 'Platinum', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'), 'Active', 'Paid')
+INSERT INTO GymMembership1 VALUES(10, 10, 10, 'Gold', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'), 'Active', 'Paid')
+
+
+INSERT INTO GymEquipment1 values(1, 1, 'Treadmill', 'Cardio', TO_DATE('2022-05-15', 'YYYY-MM-DD'), 'Good')
+INSERT INTO GymEquipment1 values(2, 2, 'Dumbbells', 'Strength Training', TO_DATE('2021-07-20', 'YYYY-MM-DD'), 'Needs Repair')
+INSERT INTO GymEquipment1 values(3, 3, 'Exercise Bike', 'Cardio', TO_DATE('2022-02-10', 'YYYY-MM-DD'), 'Good')
+INSERT INTO GymEquipment1 values(4, 4, 'Elliptical Trainer', 'Cardio', TO_DATE('2023-01-25', 'YYYY-MM-DD'), 'Excellent')
+INSERT INTO GymEquipment1 values(5, 5, 'Rowing Machine', 'Cardio', TO_DATE('2021-08-30', 'YYYY-MM-DD'), 'Good')
+INSERT INTO GymEquipment1 values(6, 6, 'Leg Press Machine', 'Strength Training', TO_DATE('2022-03-18', 'YYYY-MM-DD'), 'Needs Maintenance')
+INSERT INTO GymEquipment1 values(7, 7, 'Chest Press Machine', 'Strength Training', TO_DATE('2023-04-10', 'YYYY-MM-DD'), 'Good')
+INSERT INTO GymEquipment1 values(8, 8, 'Free Weights', 'Strength Training', TO_DATE('2021-06-05', 'YYYY-MM-DD'), 'Good')
+INSERT INTO GymEquipment1 values(9, 9, 'Smith Machine', 'Strength Training', TO_DATE('2022-12-01', 'YYYY-MM-DD'), 'Excellent')
+INSERT INTO GymEquipment1 values(10, 10, 'Pull-up Bar', 'Bodyweight Training', TO_DATE('2020-10-15', 'YYYY-MM-DD'), 'Good')
+
+
+
+
+INSERT INTO GymDietPlan1 VALUES(1, 1, 'Weight Loss', 'Low-calorie diet for fat burning', 1000)
+INSERT INTO GymDietPlan1 VALUES(2, 2, 'Muscle Gain', 'High-protein diet for muscle building', 1500)
+INSERT INTO GymDietPlan1 VALUES(3, 3, 'Keto Diet', 'High-fat, low-carb diet for weight loss', 1200)
+INSERT INTO GymDietPlan1 VALUES(4, 4, 'Balanced Diet', 'A balanced mix of protein, carbs, and fats', 1100)
+INSERT INTO GymDietPlan1 VALUES(5, 5, 'Vegan Diet', 'Plant-based diet for overall wellness', 900)
+INSERT INTO GymDietPlan1 VALUES(6, 6, 'Detox Diet', 'Detoxifying diet for cleansing the body', 950)
+INSERT INTO GymDietPlan1 VALUES(7, 7, 'Low-Carb Diet', 'Diet focused on reducing carbohydrate intake', 1050)
+INSERT INTO GymDietPlan1 VALUES(8, 8, 'High-Protein Diet', 'High-protein diet to build lean muscle', 1400)
+INSERT INTO GymDietPlan1 VALUES(9, 9, 'Paleo Diet', 'A diet based on whole, unprocessed foods', 1250)
+INSERT INTO GymDietPlan1 VALUES(10, 10, 'Intermittent Fasting', 'Diet plan focused on fasting intervals', 1000)
+
+
+INSERT INTO GymTrainer1 VALUES(1, 1, 'John Doe', 'Strength Training', '9876543210', 'johndoe@gym.com')
+INSERT INTO GymTrainer1 VALUES(2, 2, 'Alice Smith', 'Yoga', '9876543211', 'alice.smith@gym.com')
+INSERT INTO GymTrainer1 VALUES(3, 3, 'Bob Brown', 'Cardio', '9876543212', 'bob.brown@gym.com')
+INSERT INTO GymTrainer1 VALUES(4, 4, 'Charlie Davis', 'Pilates', '9876543213', 'charlie.davis@gym.com')
+INSERT INTO GymTrainer1 VALUES(5, 5, 'David Miller', 'CrossFit', '9876543214', 'david.miller@gym.com')
+INSERT INTO GymTrainer1 VALUES(6, 6, 'Eva White', 'Zumba', '9876543215', 'eva.white@gym.com')
+INSERT INTO GymTrainer1 VALUES(7, 7, 'Frank Green', 'Bodybuilding', '9876543216', 'frank.green@gym.com')
+INSERT INTO GymTrainer1 VALUES(8, 8, 'Grace Adams', 'Kickboxing', '9876543217', 'grace.adams@gym.com')
+INSERT INTO GymTrainer1 VALUES(9, 9, 'Hank Lewis', 'Strength & Conditioning', '9876543218', 'hank.lewis@gym.com')
+INSERT INTO GymTrainer1 VALUES(10, 10, 'Ivy Wilson', 'Aerobics', '9876543219', 'ivy.wilson@gym.com')
+
